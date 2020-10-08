@@ -1,4 +1,4 @@
-# neural-network-models
+# Neural Network Models
 
 ---------------------------------------------------------- IN PROGRESS -------------------------------------------------------------- <br>
 This repo will contain models of neural netwoks. 
