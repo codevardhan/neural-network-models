@@ -1,75 +1,181 @@
 import numpy as np
+from random import random
 
 
-class MLP:
+class MLP(object):
+    """A Multilayer Perceptron class
+    """
 
-    def __init__(self, num_inputs=3, num_hidden=None, num_outputs=2):
-        if num_hidden is None:
-            num_hidden = [3, 5]
+    def __init__(self, num_inputs=3, hidden_layers=[3, 3], num_outputs=2):
+        """Constructor for the MLP. Takes the number of inputs,
+            a variable number of hidden layers, and number of outputs
+        """
+
         self.num_inputs = num_inputs
+        self.hidden_layers = hidden_layers
         self.num_outputs = num_outputs
-        self.num_hidden = num_hidden
 
-        layers = [self.num_inputs] + self.num_hidden + [self.num_outputs]
+        # create a generic representation of the layers
+        layers = [num_inputs] + hidden_layers + [num_outputs]
 
-        # initiate weights
-        self.weights = []
+        # create random connection weights for the layers
+        weights = []
         for i in range(len(layers) - 1):
             w = np.random.rand(layers[i], layers[i + 1])
-            self.weights.append(w)
+            weights.append(w)
+        self.weights = weights
 
-        # initiate activations
+        # save derivatives per layer
+        derivatives = []
+        for i in range(len(layers) - 1):
+            d = np.zeros((layers[i], layers[i + 1]))
+            derivatives.append(d)
+        self.derivatives = derivatives
+
+        # save activations per layer
         activations = []
-        for a in range(len(layers)):
+        for i in range(len(layers)):
             a = np.zeros(layers[i])
             activations.append(a)
         self.activations = activations
 
-        # initiate activations
-        derivatives = []
-        for d in range(len(layers)):
-            d = np.zeros(layers[i], layers[i + 1])
-            derivatives.append(d)
-        self.derivatives = derivatives
 
     def forward_propagate(self, inputs):
+        """Computes forward propagation of the network based on input signals.
+        """
 
+        # the input layer activation is just the input itself
         activations = inputs
-        self.activations[0] = inputs
+
+        # save the activations for backpropogation
+        self.activations[0] = activations
+
+        # iterate through the network layers
         for i, w in enumerate(self.weights):
-            # find net input
+            # calculate matrix multiplication between previous activation and weight matrix
             net_inputs = np.dot(activations, w)
-            # find activation
+
+            # apply sigmoid activation function
             activations = self._sigmoid(net_inputs)
+
+            # save the activations for backpropogation
             self.activations[i + 1] = activations
+
+        # return output layer activation
         return activations
 
+
     def back_propagate(self, error):
+        """Backpropogates an error signal.
+        """
 
-        # dE/dW_i = (y - a_[i+1]) s'(h_[i+1]) a_i
-        # s'(h_[i+1]) = s(h_[i+1])(1 - s(h_[i+1]))
-        # s(h_[i+1]) = a_[i+1]
-
+        # iterate backwards through the network layers
         for i in reversed(range(len(self.derivatives))):
-            activations = self.activations[i + 1]
+
+            # get activation for previous layer
+            activations = self.activations[i+1]
+
+            # apply sigmoid derivative function
             delta = error * self._sigmoid_derivative(activations)
-            delta_reshaped = delta.reshape(delta.shape[0], -1).T
+
+            # reshape delta as to have it as a 2d array
+            delta_re = delta.reshape(delta.shape[0], -1).T
+
+            # get activations for current layer
             current_activations = self.activations[i]
-            current_activations_reshaped = current_activations.reshape(current_activations.shape[0], -1)
-            self.derivatives[i] = np.dot(current_activations_reshaped, delta)
+
+            # reshape activations as to have them as a 2d column matrix
+            current_activations = current_activations.reshape(current_activations.shape[0],-1)
+
+            # save derivative after applying matrix multiplication
+            self.derivatives[i] = np.dot(current_activations, delta_re)
+
+            # backpropogate the next error
+            error = np.dot(delta, self.weights[i].T)
+
+
+    def train(self, inputs, targets, epochs, learning_rate):
+        """Trains model running forward prop and backprop
+        """
+        # now enter the training loop
+        for i in range(epochs):
+            sum_errors = 0
+
+            # iterate through all the training data
+            for j, input in enumerate(inputs):
+                target = targets[j]
+
+                # activate the network!
+                output = self.forward_propagate(input)
+
+                error = target - output
+
+                self.back_propagate(error)
+
+                # now perform gradient descent on the derivatives
+                # (this will update the weights
+                self.gradient_descent(learning_rate)
+
+                # keep track of the MSE for reporting later
+                sum_errors += self._mse(target, output)
+
+            # Epoch complete, report the training error
+            print("Error: {} at epoch {}".format(sum_errors / len(items), i+1))
+
+        print("Training complete!")
+        print("=====")
+
+
+    def gradient_descent(self, learningRate=1):
+        """Learns by descending the gradient
+        """
+        # update the weights by stepping down the gradient
+        for i in range(len(self.weights)):
+            weights = self.weights[i]
+            derivatives = self.derivatives[i]
+            weights += derivatives * learningRate
+
+
+    def _sigmoid(self, x):
+        """Sigmoid activation function
+        Args:
+            x (float): Value to be processed
+    """
+
+        y = 1.0 / (1 + np.exp(-x))
+        return y
+
 
     def _sigmoid_derivative(self, x):
+        """Sigmoid derivative function
+        """
         return x * (1.0 - x)
 
-    @staticmethod
-    def _sigmoid(x):
-        return 1 / (1 + np.exp(-x))
+
+    def _mse(self, target, output):
+        """Mean Squared Error loss function
+        """
+        return np.average((target - output) ** 2)
 
 
 if __name__ == "__main__":
-    mlp = MLP()
 
-    inputs = np.random.rand(mlp.num_inputs)
-    outputs = mlp.forward_propagate(inputs)
-    print("The inputs are {}".format(inputs))
-    print("The outputs are {}".format(outputs))
+    # create a dataset to train a network for the sum operation
+    items = np.array([[random()/2 for _ in range(2)] for _ in range(1000)])
+    targets = np.array([[i[0] + i[1]] for i in items])
+
+    # create a Multilayer Perceptron with one hidden layer
+    mlp = MLP(2, [5], 1)
+
+    # train network
+    mlp.train(items, targets, 500, 0.5)
+
+    # create dummy data
+    input = np.array([0.3, 0.3])
+    target = np.array([0.6])
+
+    # get a prediction
+    output = mlp.forward_propagate(input)
+
+    print()
+    print("Our MLP network believes that {} + {} is equal to {}".format(input[0], input[1], output[0]))
