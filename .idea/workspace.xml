@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="18a7dbd4-754d-4df5-b113-4cb88f378526" name="Default Changelist" comment="" />
+    <list default="true" id="18a7dbd4-754d-4df5-b113-4cb88f378526" name="Default Changelist" comment="finished mlp" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -29,7 +29,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
-  <component name="RunManager" selected="Python.main (1)">
+  <component name="RunManager" selected="Python.main (2)">
     <configuration name="main (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="neural-network-models" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -43,6 +43,27 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/MLPtf/main.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="main (2)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="neural-network-models" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/CNNtf" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/CNNtf/main.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -74,6 +95,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.main (2)" />
         <item itemvalue="Python.main (1)" />
         <item itemvalue="Python.main" />
       </list>
@@ -95,21 +117,25 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="0" y="72" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.834@0.0.1536.834" timestamp="1602124064182" />
-    <state width="746" height="216" key="GridCell.Tab.0.bottom" timestamp="1602170122589">
+    <state x="549" y="172" key="FileChooserDialogImpl" timestamp="1602251610646">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="746" height="216" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1602170122589" />
-    <state width="746" height="216" key="GridCell.Tab.0.center" timestamp="1602170122589">
+    <state x="549" y="172" key="FileChooserDialogImpl/0.0.1536.834@0.0.1536.834" timestamp="1602251610646" />
+    <state width="1515" height="216" key="GridCell.Tab.0.bottom" timestamp="1603098040891">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="746" height="216" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1602170122589" />
-    <state width="746" height="216" key="GridCell.Tab.0.left" timestamp="1602170122589">
+    <state width="1515" height="216" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1603098040891" />
+    <state width="1515" height="216" key="GridCell.Tab.0.center" timestamp="1603098040891">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="746" height="216" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1602170122589" />
-    <state width="746" height="216" key="GridCell.Tab.0.right" timestamp="1602170122589">
+    <state width="1515" height="216" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1603098040891" />
+    <state width="1515" height="216" key="GridCell.Tab.0.left" timestamp="1603098040891">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="746" height="216" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1602170122589" />
+    <state width="1515" height="216" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1603098040891" />
+    <state width="1515" height="216" key="GridCell.Tab.0.right" timestamp="1603098040891">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state width="1515" height="216" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1603098040891" />
   </component>
 </project>
